@@ -3,104 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Interaktive Web-App zur Visualisierung von UV-Strahlung: Unterschied auf der Haut zwischen mineralischem und chemischem Schutz." />
-  <title>UV-Visualisierung – Mineralisch vs. Chemisch</title>
+  <meta name="description" content="UV‑Hautfokus: Pfeile für UVA/UVB/UVC am Hautausschnitt. Umschalten zwischen mineralischem und chemischem Schutz. Toggle für Beschriftungen." />
+  <title>UV – Hautfokus (Mineralisch ↔ Chemisch)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="app-header" role="banner">
     <div class="brand">
       <div class="logo" aria-hidden="true">☀️</div>
-      <h1>UV-Visualisierung</h1>
+      <h1>UV – Hautfokus</h1>
     </div>
-    <p class="subtitle">Fokus: Unterschied auf der Haut – <strong>mineralischer</strong> vs. <strong>chemischer</strong> Schutz</p>
+    <p class="subtitle">Nur zwei Bedien­elemente: Schutz‑Switch & Beschriftung‑Toggle</p>
   </header>
 
   <main class="app-main" role="main">
     <section class="control-panel" aria-label="Steuerung">
-      <div class="control-group">
-        <label for="sunStrength">Sonnenstärke
-          <span class="hint" tabindex="0" aria-label="Hilfe: Sonnenstärke" data-tooltip="Entspricht dem UV-Index in Kategorien. Höher = mehr UV-Strahlung.">ⓘ</span>
-        </label>
-        <select id="sunStrength" aria-describedby="sunStrengthHelp">
-          <option value="low">niedrig</option>
-          <option value="moderate">moderat</option>
-          <option value="high">hoch</option>
-          <option value="veryhigh">sehr hoch</option>
-          <option value="extreme">extrem</option>
-        </select>
-        <div id="sunStrengthHelp" class="assist">Kategorien angelehnt an UV-Index (UVI).</div>
-      </div>
-
-      <div class="control-group">
-        <label for="protection">Schutzart
-          <span class="hint" tabindex="0" aria-label="Hilfe: Schutzart" data-tooltip="Mineralisch bildet eine sichtbare Schicht und reflektiert UV. Chemisch bildet keine sichtbare Schicht und absorbiert UV in der oberen Hautschicht.">ⓘ</span>
-        </label>
-        <select id="protection" aria-describedby="protectionHelp">
-          <option value="mineral">mineralisch</option>
-          <option value="chemical">chemisch</option>
-        </select>
-        <div id="protectionHelp" class="assist">Visualisierung betont Unterschiede <em>auf der Haut</em> (Film/Reflex vs. Absorption/kein Film).</div>
-      </div>
-
-      <div class="control-group">
-        <label for="duration">Dauer in der Sonne: <span id="durationValue">0</span> min
-          <span class="hint" tabindex="0" aria-label="Hilfe: Dauer" data-tooltip="Schieberegler zur simulierten Zeit unter Sonne. Die UV-Dosis steigt mit der Zeit.">ⓘ</span>
-        </label>
-        <input id="duration" type="range" min="0" max="180" step="5" value="0" />
-      </div>
-
-      <div class="metrics">
-        <div class="metric">
-          <div class="label">UV-Dosis</div>
-          <div class="value"><span id="doseValue">0.00</span> Einheiten</div>
+      <div class="switch-group">
+        <div class="label-row">
+          <span class="label">Schutzart</span>
+          <span class="hint" tabindex="0" aria-label="Hilfe: Schutzart" data-tooltip="Mineralisch: sichtbarer Film und Reflexion. Chemisch: kein Film, Absorption in oberer Hautschicht.">ⓘ</span>
         </div>
-        <div class="metric">
-          <div class="label">Hautstatus</div>
-          <div class="value"><span id="skinStatus">neutral</span></div>
+        <div class="segmented" role="group" aria-label="Schutzart">
+          <button id="btnMineral" class="seg active" aria-pressed="true">Mineralisch</button>
+          <button id="btnChemical" class="seg" aria-pressed="false">Chemisch</button>
         </div>
       </div>
 
-      <div class="legend" aria-label="Legende und Hinweise">
-        <h2>Legende</h2>
-        <ul>
-          <li><span class="chip chip-uva"></span> UVA‑Partikel (violett) – dringen tiefer ein</li>
-          <li><span class="chip chip-uvb"></span> UVB‑Partikel (blau) – stärkere Rötung</li>
-          <li><span class="chip chip-mineral"></span> Mineralischer Schutz – <strong>sichtbarer Film</strong>, Reflexion (weiße Funken)</li>
-          <li><span class="chip chip-chemical"></span> Chemischer Schutz – <strong>kein sichtbarer Film</strong>, Absorption (Partikel verblassen im Skin‑Glow)</li>
-        </ul>
-        <p class="disclaimer">Vereinfachte Darstellung für den Unterricht/Präsentationen – kein medizinischer Rat.</p>
-      </div>
-
-      <div class="legend" aria-label="Didaktischer Fokus">
-        <h2>Hautfokus</h2>
-        <p><strong>Mineralisch:</strong> Weißlicher Schimmer/Film auf Kopf & Armen, Partikel prallen ab.<br/>
-           <strong>Chemisch:</strong> Keine sichtbare Schicht, Partikel werden direkt in der oberen Hautschicht aufgenommen – kurze Glows.</p>
+      <div class="switch-group">
+        <div class="label-row">
+          <span class="label">Beschriftungen</span>
+          <span class="hint" tabindex="0" aria-label="Hilfe: Beschriftungen" data-tooltip="Namen der Hautschichten und Atmosphären‑Hinweis ein-/ausblenden.">ⓘ</span>
+        </div>
+        <label class="switch">
+          <input id="toggleLabels" type="checkbox" checked />
+          <span class="slider" aria-hidden="true"></span>
+          <span class="switch-text">anzeigen</span>
+        </label>
       </div>
     </section>
 
     <section class="scene-panel" aria-label="Szene">
       <div class="canvas-wrap">
-        <canvas id="scene" aria-label="UV-Visualisierung Szene" role="img"></canvas>
-        <div class="overlay-hints">
-          <div class="tooltip fixed" style="top:12px; left:12px;">
-            <strong>Sonne:</strong> UV‑Quelle. Wolken dämpfen, Wasser/Schnee reflektieren.
-          </div>
-          <div class="tooltip fixed" style="bottom:12px; left:12px;">
-            <strong>Wasser:</strong> leichte Reflexion (glitzert)
-          </div>
-          <div class="tooltip fixed" style="bottom:12px; right:12px;">
-            <strong>Schnee/Berg:</strong> starke Reflexion
-          </div>
-        </div>
+        <canvas id="scene" aria-label="UV-Animation (Hautfokus)" role="img"></canvas>
       </div>
     </section>
   </main>
 
   <footer class="app-footer" role="contentinfo">
     <div class="footer-inner">
-      <div>© 2026 – Lernvisualisierung UV: Mineralisch vs. Chemisch</div>
-      <div class="small">Hinweis: Modell vereinfacht Zusammenhänge.</div>
+      <div>© 2026 – UV‑Hautvisualisierung</div>
+      <div class="small">Vereinfachte Darstellung zu Lernzwecken.</div>
     </div>
   </footer>
 

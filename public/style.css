@@ -1,70 +1,41 @@
-
-:root {
-  --bg: #0e1014;
-  --panel: #11141a;
-  --panel-2: #171b22;
-  --text: #e6ebf5;
-  --muted: #a9b1c3;
-  --accent: #6cc0ff;
-  --accent-2: #ffd36c;
-  --uva: #8a5cff;
-  --uvb: #4da5ff;
-  --good: #6cff9b;
-  --warn: #ffd36c;
-  --bad: #ff7b6c;
-  --teal: #57ffc7;
+/* Minimal, professionell – exakt 2 Controls: Schutz-Switch & Beschriftung-Toggle */
+:root{
+  --bg:#0e1014; --panel:#11141a; --panel-2:#171b22; --text:#e6ebf5; --muted:#a9b1c3;
+  --accent:#6cc0ff; --accent-2:#ffd36c; --uva:#8a5cff; --uvb:#4da5ff; --uvc:#43ff9d; --teal:#57ffc7;
 }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,'Helvetica Neue',Arial,system-ui,sans-serif;line-height:1.45}
+.app-header{padding:20px clamp(16px,3vw,32px);background:linear-gradient(180deg,#111522 0%,rgba(17,21,34,.6) 100%);border-bottom:1px solid #1b2130}
+.brand{display:flex;align-items:center;gap:12px}.logo{font-size:22px;filter:drop-shadow(0 0 10px rgba(255,211,108,.5))}
+.app-header h1{margin:0;font-size:clamp(20px,2.2vw,28px)}.subtitle{margin:6px 0 0 34px;color:var(--muted);font-size:.95rem}
+.app-main{display:grid;grid-template-columns:360px 1fr;gap:16px;padding:16px;min-height:calc(100vh - 130px)}
+.control-panel{background:var(--panel);border:1px solid #1b2130;border-radius:14px;padding:16px;position:sticky;top:12px;height:fit-content}
+.scene-panel{background:var(--panel);border:1px solid #1b2130;border-radius:14px;padding:10px;display:flex}
+.canvas-wrap{position:relative;width:100%;border-radius:10px;overflow:hidden;background:radial-gradient(1200px 700px at 50% -200px,#16223a 0%,#0e1014 70%)}
+#scene{width:100%;height:min(72vh,760px);display:block}
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, 'Helvetica Neue', Arial, system-ui, sans-serif; line-height: 1.45; }
+.switch-group{margin-bottom:16px}
+.label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.label{font-weight:700}
+.hint{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:12px;color:#0b1225;background:var(--accent);cursor:help;margin-left:8px}
+.hint:hover::after,.hint:focus::after{content:attr(data-tooltip);position:absolute;transform:translateY(28px);background:rgba(10,14,24,.95);color:var(--text);padding:8px 10px;border-radius:8px;border:1px solid #26304a;width:min(280px,70vw);font-size:.9rem;z-index:10}
 
-.app-header { padding: 20px clamp(16px, 3vw, 32px); background: linear-gradient(180deg, #111522 0%, rgba(17,21,34,0.6) 100%); border-bottom: 1px solid #1b2130; }
-.brand { display: flex; align-items: center; gap: 12px; }
-.logo { font-size: 22px; filter: drop-shadow(0 0 10px rgba(255,211,108,0.5)); }
-.app-header h1 { margin: 0; font-size: clamp(20px, 2.2vw, 28px); letter-spacing: 0.2px; }
-.subtitle { margin: 6px 0 0 34px; color: var(--muted); font-size: 0.95rem; }
+.segmented{display:inline-flex;background:var(--panel-2);border:1px solid #242a3b;border-radius:10px;overflow:hidden}
+.seg{appearance:none;background:none;border:0;color:var(--text);padding:10px 14px;cursor:pointer}
+.seg:not(.active):hover{background:#1a2131}
+.seg.active{background:linear-gradient(180deg,#24314a,#1b2438);box-shadow:inset 0 0 0 1px #2a3956}
 
-.app-main { display: grid; grid-template-columns: 360px 1fr; gap: 16px; padding: 16px; min-height: calc(100vh - 130px); }
-.control-panel { background: var(--panel); border: 1px solid #1b2130; border-radius: 14px; padding: 16px; position: sticky; top: 12px; height: fit-content; }
+.switch{display:inline-flex;align-items:center;gap:10px;user-select:none}
+.switch input{display:none}
+.slider{position:relative;display:inline-block;width:46px;height:26px;background:#25304a;border-radius:999px;border:1px solid #2a3654}
+.slider::after{content:"";position:absolute;top:2px;left:2px;width:22px;height:22px;background:#e6ebf5;border-radius:50%;transition:transform .2s ease}
+.switch input:checked + .slider::after{transform:translateX(20px)}
+.switch input:checked + .slider{background:#2a6fb8}
+.switch-text{color:var(--muted);font-size:.92rem}
 
-.control-group { margin-bottom: 16px; }
-.control-group label { display: flex; align-items: center; justify-content: space-between; font-weight: 600; margin-bottom: 8px; }
-select, input[type="range"] { width: 100%; }
+.app-footer{padding:14px 16px;border-top:1px solid #1b2130;color:var(--muted)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.small{font-size:.85rem}
 
-select { appearance: none; background: var(--panel-2); color: var(--text); border: 1px solid #242a3b; border-radius: 10px; padding: 10px 12px; outline: none; }
-
-input[type="range"] { -webkit-appearance: none; height: 8px; background: #20263a; border-radius: 999px; outline: none; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #e6f5ff; box-shadow: 0 0 0 3px rgba(108,192,255,0.15); }
-
-.metrics { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
-.metric { background: var(--panel-2); border: 1px solid #242a3b; border-radius: 12px; padding: 10px 12px; }
-.metric .label { color: var(--muted); font-size: 0.9rem; }
-.metric .value { font-size: 1.1rem; font-weight: 700; margin-top: 4px; }
-
-.legend { margin-top: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px dashed #2a3247; border-radius: 12px; padding: 12px; }
-.legend h2 { margin: 0 0 8px 0; font-size: 1rem; color: var(--muted); }
-.legend ul { list-style: none; padding: 0; margin: 0; }
-.legend li { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
-.chip { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
-.chip-uva { background: var(--uva); box-shadow: 0 0 8px rgba(138,92,255,0.8); }
-.chip-uvb { background: var(--uvb); box-shadow: 0 0 8px rgba(77,165,255,0.8); }
-.chip-mineral { background: #ffffff; box-shadow: 0 0 8px rgba(255,255,255,0.7); border: 1px solid #dbe4ff; }
-.chip-chemical { background: var(--teal); box-shadow: 0 0 8px rgba(87,255,199,0.6); }
-
-.scene-panel { background: var(--panel); border: 1px solid #1b2130; border-radius: 14px; padding: 10px; display:flex; }
-.canvas-wrap { position: relative; width: 100%; border-radius: 10px; overflow: hidden; background: radial-gradient(1200px 700px at 50% -200px, #16223a 0%, #0e1014 70%); }
-#scene { width: 100%; height: min(70vh, 720px); display: block; }
-
-.overlay-hints .tooltip.fixed { position: absolute; background: rgba(20,25,36,0.78); border: 1px solid #242a3b; color: var(--text); padding: 8px 10px; border-radius: 10px; font-size: 0.9rem; backdrop-filter: blur(4px); }
-
-.hint { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; font-size: 12px; color: #0b1225; background: var(--accent); cursor: help; margin-left: 8px; }
-.hint:hover::after, .hint:focus::after { content: attr(data-tooltip); position: absolute; transform: translateY(28px); background: rgba(10,14,24,0.95); color: var(--text); padding: 8px 10px; border-radius: 8px; border: 1px solid #26304a; width: min(280px, 70vw); font-size: 0.9rem; z-index: 10; }
-.assist { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
-
-.app-footer { padding: 14px 16px; border-top: 1px solid #1b2130; color: var(--muted); }
-.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.small { font-size: 0.85rem; }
-
-/* Responsiveness */
-@media (max-width: 1060px) { .app-main { grid-template-columns: 1fr; } .control-panel { position: relative; top: 0; } #scene { height: min(64vh, 640px); } }
-@media (max-width: 560px) { .brand h1 { font-size: 18px; } .subtitle { margin-left: 0; font-size: 0.9rem; } #scene { height: min(58vh, 560px); } }
+@media (max-width:1060px){.app-main{grid-template-columns:1fr}.control-panel{position:relative;top:0}#scene{height:min(68vh,700px)}}
+@media (max-width:560px){.brand h1{font-size:18px}.subtitle{margin-left:0;font-size:.9rem}#scene{height:min(62vh,600px)}}

@@ -3,3 +3,4 @@ main = "worker.js"
 compatibility_date = "2024-11-20"
 
 assets = { binding = "ASSETS", directory = "./public" }
+route = { pattern = "how2virus.de/*", zone_name = "how2virus.de" }

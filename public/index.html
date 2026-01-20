@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interaktive Web-App zur Visualisierung von UV-Strahlung, Schutzwirkung und Hautrötung – ideal für 8. Klasse und professionelle Präsentationen." />
+  <title>UV-Visualisierung – Interaktive Lern-App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">☀️</div>
+      <h1>UV-Visualisierung</h1>
+    </div>
+    <p class="subtitle">Lerne, wie Sonne, Reflexionen und Schutz die UV-Dosis beeinflussen</p>
+  </header>
+
+  <main class="app-main" role="main">
+    <!-- Linke Spalte: Steuerung/Erklärung -->
+    <section class="control-panel" aria-label="Steuerung">
+      <div class="control-group">
+        <label for="sunStrength">Sonnenstärke
+          <span class="hint" tabindex="0" aria-label="Hilfe: Sonnenstärke" data-tooltip="Entspricht dem UV-Index in Kategorien. Höher = mehr UV-Strahlung.">ⓘ</span>
+        </label>
+        <select id="sunStrength" aria-describedby="sunStrengthHelp">
+          <option value="low">niedrig</option>
+          <option value="moderate">moderat</option>
+          <option value="high">hoch</option>
+          <option value="veryhigh">sehr hoch</option>
+          <option value="extreme">extrem</option>
+        </select>
+        <div id="sunStrengthHelp" class="assist">Kategorien angelehnt an UV-Index (UVI).</div>
+      </div>
+
+      <div class="control-group">
+        <label for="protection">Schutzart
+          <span class="hint" tabindex="0" aria-label="Hilfe: Schutzart" data-tooltip="Mineralisch reflektiert UV, chemisch absorbiert UV. SPF30/50+ sind Richtwerte der Durchlässigkeit.">ⓘ</span>
+        </label>
+        <select id="protection" aria-describedby="protectionHelp">
+          <option value="none">keiner</option>
+          <option value="spf30">SPF30</option>
+          <option value="spf50">SPF50+</option>
+          <option value="mineral">mineralisch</option>
+          <option value="chemical">chemisch</option>
+        </select>
+        <div id="protectionHelp" class="assist">Vereinfacht: SPF ≈ wie viel weniger UV die Haut erreicht.</div>
+      </div>
+
+      <div class="control-group">
+        <label for="duration">Dauer in der Sonne: <span id="durationValue">0</span> min
+          <span class="hint" tabindex="0" aria-label="Hilfe: Dauer" data-tooltip="Schieberegler zur simulierten Zeit unter Sonne. Die UV-Dosis steigt mit der Zeit.">ⓘ</span>
+        </label>
+        <input id="duration" type="range" min="0" max="180" step="5" value="0" />
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">UV-Dosis</div>
+          <div class="value"><span id="doseValue">0.00</span> Einheiten</div>
+        </div>
+        <div class="metric">
+          <div class="label">Hautstatus</div>
+          <div class="value"><span id="skinStatus">neutral</span></div>
+        </div>
+      </div>
+
+      <div class="legend" aria-label="Legende und Hinweise">
+        <h2>Legende</h2>
+        <ul>
+          <li><span class="chip chip-uva"></span> UVA‑Partikel (violett) – Eindringtiefe hoch</li>
+          <li><span class="chip chip-uvb"></span> UVB‑Partikel (blau) – Erythem/„Sonnenbrand“</li>
+          <li><span class="chip chip-mineral"></span> Mineralischer Schutz – reflektiert (weiße Funken)</li>
+          <li><span class="chip chip-chemical"></span> Chemischer Schutz – absorbiert (partikel verblassen)</li>
+        </ul>
+        <p class="disclaimer">Physikalisch <strong>vereinfacht</strong> – didaktische Visualisierung für Schule/Präsentation.</p>
+      </div>
+    </section>
+
+    <!-- Rechte Spalte: Szene/Canvas -->
+    <section class="scene-panel" aria-label="Szene">
+      <div class="canvas-wrap">
+        <canvas id="scene" aria-label="UV-Visualisierung Szene" role="img"></canvas>
+        <div class="overlay-hints">
+          <div class="tooltip fixed" style="top:12px; left:12px;">
+            <strong>Sonne:</strong> Strahlt UV ab. Wolken dämpfen, Schnee/Wasser reflektieren.
+          </div>
+          <div class="tooltip fixed" style="bottom:12px; left:12px;">
+            <strong>Wasser:</strong> leichte Reflexion (glitzert)
+          </div>
+          <div class="tooltip fixed" style="bottom:12px; right:12px;">
+            <strong>Schnee/Berg:</strong> starke Reflexion bei starkem Sonnenstand
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>© 2026 – Lernvisualisierung von UV-Strahlung</div>
+      <div class="small">Hinweis: Dieses Modell vereinfacht Zusammenhänge (kein medizinischer Rat).</div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

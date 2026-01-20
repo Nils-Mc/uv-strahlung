@@ -1,4 +1,4 @@
-name = "uv-simulator"
+name = "uv-strahlung"
 main = "worker.js"
 compatibility_date = "2024-11-20"
 
